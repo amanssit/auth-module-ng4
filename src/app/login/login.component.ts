@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Message} from 'primeng/primeng';
+import {Router} from "@angular/router"
 
-import {User} from "../services/user/user"
+import {CookieService} from 'angular2-cookie/core';
+
 import {UserService} from "../services/user/user.service"
 
 @Component({
@@ -12,9 +14,9 @@ import {UserService} from "../services/user/user.service"
 export class LoginComponent implements OnInit {
   user: any = {};
   msgs: Message[] = [];
-  response:any={};
+  response: any = {};
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private cookieService: CookieService,private router:Router) {
   }
 
   ngOnInit() {
@@ -25,18 +27,19 @@ export class LoginComponent implements OnInit {
     this.user.username = username;
     this.user.password = password;
     this.userService.loginUser(this.user)
-      .then(res=>{
-this.response=res;
-        if(this.response.status==200)
-        {
+      .then(res => {
+        this.response = res;
+        if (this.response.status == 200) {
           this.msgs = [];
-          this.msgs.push({severity:'success', summary:'Login Success', detail:'Login Success'});
+          this.msgs.push({severity: 'success', summary: 'Login Success', detail: 'Login Success'});
+          this.cookieService.put('user_token',this.response.token);
+          this.router.navigate(['/dashboard/profile']);
         }
         else {
           this.msgs = [];
-          this.msgs.push({severity:'error', summary:'Login Faild', detail:this.response.msg});
+          this.msgs.push({severity: 'error', summary: 'Login Faild', detail: this.response.msg});
         }
-        console.log('login res : ',res);
+        console.log('login res : ', res);
       })
   }
 

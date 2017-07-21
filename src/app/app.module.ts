@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import {GrowlModule} from 'primeng/primeng';
 import {PasswordModule} from 'primeng/primeng';
 
@@ -36,7 +38,7 @@ const appRoutes: Routes = [
     GrowlModule,
     PasswordModule
   ],
-  providers: [UserService],
+  providers: [UserService,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
