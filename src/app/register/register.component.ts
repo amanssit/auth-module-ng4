@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router"
 
 import {UserService} from "../services/user/user.service"
 
@@ -11,7 +12,7 @@ export class RegisterComponent implements OnInit {
   data: any = {};
   response: any = {};
 
-  constructor(private userService: UserService) {
+  constructor(private router:Router,private userService: UserService) {
   }
 
   ngOnInit() {
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit {
       .then((res) => {
         this.response = res;
         if (this.response.status == 200) {
-          alert(this.response.msg)
+          alert(this.response.msg);
+          this.router.navigate(['/login']);
         }
         else{
           alert(this.response.message)

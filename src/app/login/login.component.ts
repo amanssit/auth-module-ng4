@@ -9,21 +9,23 @@ import {UserService} from "../services/user/user.service"
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  users: User[];
+  user: any = {};
 
-  constructor(private userService:UserService) {
+
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
 
   }
 
-  login()
-  {
-    this.userService.getUsers().then((users)=>{
-      this.users=users
-      console.log('user data is : ',this.users);
-    });
+  login(username, password) {
+    this.user.username = username;
+    this.user.password = password;
+    this.userService.loginUser(this.user)
+      .then(res=>{
+        console.log('login res : ',res);
+      })
   }
 
 }

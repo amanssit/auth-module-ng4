@@ -25,6 +25,13 @@ export class UserService {
       .catch(this.handleError)
   }
 
+  loginUser(user):Promise<User>{
+    return this.http.post(this.userUrl+'/auth',JSON.stringify(user),{headers:this.headers})
+      .toPromise()
+      .then(res=>res.json())
+      .catch(this.handleError);
+  }
+
 
 
   private handleError(error: any): Promise<any> {
