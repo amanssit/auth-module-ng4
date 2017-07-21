@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 
+import {GrowlModule} from 'primeng/primeng';
+import {PasswordModule} from 'primeng/primeng';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -28,7 +31,10 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpModule
+    HttpModule,
+
+    GrowlModule,
+    PasswordModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
