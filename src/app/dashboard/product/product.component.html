@@ -30,7 +30,17 @@
   <p-column field="sku" header="SKU" [sortable]="true"></p-column>
   <p-column field="name" header="NAME" [sortable]="true"></p-column>
   <p-column field="price" header="PRICE" [sortable]="true"></p-column>
+  <p-column field="quantity" header="Quantity" [sortable]="true"></p-column>
   <p-column field="status" header="STATUS" [sortable]="true"></p-column>
+  <p-column styleClass="col-button">
+    <ng-template pTemplate="header">
+      Action
+    </ng-template>
+    <ng-template let-car="rowData" pTemplate="body">
+      <button type="button" pButton class="ui-button-danger" icon="fa-trash-o"></button>
+      <button type="button" class="ui-button-warning" pButton icon="fa-pencil-square"></button>
+    </ng-template>
+  </p-column>
 </p-dataTable>
 </div>
 

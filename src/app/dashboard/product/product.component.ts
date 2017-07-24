@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProductService} from "../../services/product/product.service"
+import {CookieService} from "angular2-cookie/core"
 
 @Component({
   selector: 'app-product',
@@ -6,32 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-products:any[];
-  constructor() { }
+  products: any[];
+  response: any = {};
+
+  constructor(private productService: ProductService, private cookie: CookieService) {
+  }
 
   ngOnInit() {
-    this.products=[
-      {sku:'101',name:'Product 1',price:54.4,status:true},
-      {sku:'102',name:'Product 2',price:24.4,status:true},
-      {sku:'103',name:'Product 3',price:64.4,status:false},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
-      {sku:'104',name:'Product 4',price:74.4,status:true},
+    this.loadProducts();
+  }
 
-    ];
+
+  loadProducts() {
+    var token = {token: this.cookie.get('user_token')};
+    this.productService.productList(token).then((res) => {
+      this.response = res;
+      if (this.response.status == 200) {
+        this.products = this.response.data;
+      }
+    })
+
+
   }
 
 }
