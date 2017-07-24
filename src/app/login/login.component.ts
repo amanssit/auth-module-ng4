@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({severity: 'success', summary: 'Login Success', detail: 'Login Success'});
           this.cookieService.put('user_token',this.response.token);
-          this.router.navigate(['/dashboard/profile']);
+          localStorage.user_token=this.response.token;
+          this.router.navigate(['/dashboard/products']);
         }
         else {
           this.msgs = [];

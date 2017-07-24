@@ -20,10 +20,17 @@ export class ProductService {
       .catch(this.handleError)
   }
 
-  productList(token): Promise<any[]> {
-    return this.http.post(this.productUrl + '/list', token, {headers: this.headers})
+  productList(): Promise<any[]> {
+    return this.http.post(this.productUrl + '/list', {headers: this.headers})
       .toPromise()
       .then(res => res.json())
+      .catch(this.handleError)
+  }
+
+  delete(product_id):Promise<any>{
+    return this.http.delete(this.productUrl+'/'+product_id,{headers:this.headers})
+      .toPromise()
+      .then(res=>res.json())
       .catch(this.handleError)
   }
 

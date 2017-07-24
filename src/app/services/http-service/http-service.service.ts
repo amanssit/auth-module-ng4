@@ -7,26 +7,23 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class HttpService extends Http {
-  mycookie: CookieService;
-
-  constructor(backend: XHRBackend, options: RequestOptions) {
-    let token = 'aman'; // your custom token getter function here
-    options.headers.set('Authorization', `Bearer ${token}`);
+   constructor(backend: XHRBackend, options: RequestOptions) {
+    let token = localStorage.user_token; // your custom token getter function here
+    options.headers.set('token', `${token}`);
     super(backend, options);
-
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    let token = 'amanl';
+    let token =  localStorage.user_token;
     if (typeof url === 'string') { // meaning we have to add the token to the options, not in url
       if (!options) {
         // let's make option object
         options = {headers: new Headers()};
       }
-      options.headers.set('Authorization', `Bearer ${token}`);
+      options.headers.set('token', `${token}`);
     } else {
       // we have to add the token to the url object
-      url.headers.set('Authorization', `Bearer ${token}`);
+      url.headers.set('token', `${token}`);
     }
     return super.request(url, options).catch(this.catchAuthError(this));
   }

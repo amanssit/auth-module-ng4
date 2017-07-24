@@ -1,22 +1,27 @@
 <app-header></app-header>
 <div class="col-md-9">
+  <p-growl [(value)]="msgs"></p-growl>
+  <p-confirmDialog></p-confirmDialog>
 <div class="row page-header">
 
   <div class="col-md-2">
-    <input type="text" placeholder="Product sku" class="form-control">
+    <input type="text" #sku placeholder="Product sku" class="form-control">
   </div>
 
   <div class="col-md-3">
-    <input type="text" placeholder="Product Name" class="form-control">
-  </div>
-  <div class="col-md-3">
-    <input type="text" placeholder="Product Price" class="form-control">
+    <input type="text" #name placeholder="Product Name" class="form-control">
   </div>
   <div class="col-md-2">
-     <input type="checkbox"> Is Avelable ?
+    <input type="text" #price placeholder="Product Price" class="form-control">
+  </div>
+   <div class="col-md-2">
+    <input type="text" #quantity placeholder="Quantity" class="form-control">
   </div>
   <div class="col-md-2">
-     <button class="btn-primary"><i class="fa fa-plus"></i></button>
+     <input type="checkbox" #status> Is Avelable ?
+  </div>
+  <div class="col-md-1">
+     <button class="btn-primary" (click)="addProduct(sku.value,name.value,price.value,quantity.value,status.value)"><i class="fa fa-plus"></i></button>
   </div>
 
 </div>
@@ -36,8 +41,8 @@
     <ng-template pTemplate="header">
       Action
     </ng-template>
-    <ng-template let-car="rowData" pTemplate="body">
-      <button type="button" pButton class="ui-button-danger" icon="fa-trash-o"></button>
+    <ng-template let-product="rowData" pTemplate="body">
+      <button (click)="deleteProduct(product)" type="button" pButton class="ui-button-danger" icon="fa-trash-o"></button>
       <button type="button" class="ui-button-warning" pButton icon="fa-pencil-square"></button>
     </ng-template>
   </p-column>

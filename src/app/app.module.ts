@@ -2,15 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule , RequestOptions, XHRBackend } from '@angular/http';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-
 import {HttpService} from "./services/http-service/http-service.service"
 
 import {GrowlModule} from 'primeng/primeng';
 import {PasswordModule} from 'primeng/primeng';
 import {DataTableModule,SharedModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
+import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -43,15 +45,17 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
 
     GrowlModule,
     PasswordModule,
     DataTableModule,SharedModule,
-    ButtonModule
+    ButtonModule,
+    ConfirmDialogModule
   ],
-  providers: [UserService,CookieService,ProductService,
+  providers: [UserService,CookieService,ProductService,ConfirmationService,
     {
       provide: HttpService,
       useFactory: (backend: XHRBackend, options: RequestOptions) => {
