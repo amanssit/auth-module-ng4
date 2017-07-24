@@ -27,10 +27,17 @@ export class ProductService {
       .catch(this.handleError)
   }
 
-  delete(product_id):Promise<any>{
-    return this.http.delete(this.productUrl+'/'+product_id,{headers:this.headers})
+  delete(product_id): Promise<any> {
+    return this.http.delete(this.productUrl + '/' + product_id, {headers: this.headers})
       .toPromise()
-      .then(res=>res.json())
+      .then(res => res.json())
+      .catch(this.handleError)
+  }
+
+  update(product_id, product): Promise<any> {
+    return this.http.put(this.productUrl + '/' + product_id, product, {headers: this.headers})
+      .toPromise()
+      .then(res => res.json())
       .catch(this.handleError)
   }
 

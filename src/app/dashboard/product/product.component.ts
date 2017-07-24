@@ -14,6 +14,8 @@ export class ProductComponent implements OnInit {
   products: any[];
   response: any = {};
   msgs: Message[] = [];
+  displayDialog: boolean;
+  p: any = {};
 
   constructor(private productService: ProductService, private confirmationService: ConfirmationService) {
   }
@@ -64,6 +66,37 @@ export class ProductComponent implements OnInit {
           }
           else {
             this.msgs = [{severity: 'error', summary: 'Success', detail: 'Error while deleting product'}];
+          }
+
+        })
+
+      },
+      reject: () => {
+        this.msgs = [{severity: 'error', summary: 'Rejected', detail: 'You have rejected'}];
+      }
+    });
+  }
+
+  showUpdate(product) {
+    this.p = product;
+    this.displayDialog = true;
+  }
+
+  updateProduct(product_id) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to UPDATE ?',
+      header: 'Confirmation',
+      icon: 'fa fa-question-circle',
+      accept: () => {
+        this.productService.update(product_id,this.p).then(res => {
+          this.response = res;
+          if (this.response.status == 200) {
+            this.displayDialog = false;
+            this.msgs = [{severity: 'success', summary: 'Success', detail: this.response.msg}];
+            this.loadProducts();
+          }
+          else {
+            this.msgs = [{severity: 'error', summary: 'Success', detail: 'Error while updating product'}];
           }
 
         })

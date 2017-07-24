@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from "@angular/forms"
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule , RequestOptions, XHRBackend } from '@angular/http';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
@@ -12,6 +13,8 @@ import {PasswordModule} from 'primeng/primeng';
 import {DataTableModule,SharedModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
 import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
+import {InputTextModule} from 'primeng/primeng';
 
 
 import { AppComponent } from './app.component';
@@ -48,12 +51,15 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
+    FormsModule,
 
     GrowlModule,
     PasswordModule,
     DataTableModule,SharedModule,
     ButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DialogModule,
+    InputTextModule
   ],
   providers: [UserService,CookieService,ProductService,ConfirmationService,
     {
