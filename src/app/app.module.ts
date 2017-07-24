@@ -26,14 +26,15 @@ import {UserService} from "./services/user/user.service";
 import { ProductComponent } from './dashboard/product/product.component';
 import { HeaderComponent } from './common/header/header.component'
 
-import {ProductService} from "./services/product/product.service"
+import {ProductService} from "./services/product/product.service";
+import {AuthGaurdService} from "./services/auth-gaurd/auth-gaurd.service";
 
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'dashboard/profile', component: ProfileComponent},
-  {path: 'dashboard/products', component: ProductComponent},
+  {path: 'dashboard/products', component: ProductComponent,canActivate:[AuthGaurdService]},
   {path: '', component: LoginComponent},
 ];
 
@@ -60,8 +61,9 @@ const appRoutes: Routes = [
     ConfirmDialogModule,
     DialogModule,
     InputTextModule
+
   ],
-  providers: [UserService,CookieService,ProductService,ConfirmationService,
+  providers: [UserService,CookieService,ProductService,ConfirmationService,AuthGaurdService,
     {
       provide: HttpService,
       useFactory: (backend: XHRBackend, options: RequestOptions) => {

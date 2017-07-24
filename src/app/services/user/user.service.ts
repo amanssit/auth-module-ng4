@@ -39,4 +39,9 @@ export class UserService {
     return Promise.reject(error.message || error);
   }
 
+  isAuth()
+  {
+    return false;
+  }
+
 }
