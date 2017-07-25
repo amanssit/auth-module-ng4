@@ -16,7 +16,6 @@ export class ProductComponent implements OnInit {
   msgs: Message[] = [];
   displayDialog: boolean;
   p: any = {};
-
   constructor(private productService: ProductService, private confirmationService: ConfirmationService) {
   }
 

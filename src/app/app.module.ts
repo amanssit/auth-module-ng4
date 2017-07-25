@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from "@angular/forms"
 import {RouterModule, Routes} from '@angular/router';
-import { HttpModule , RequestOptions, XHRBackend } from '@angular/http';
+import {Http, HttpModule , RequestOptions, XHRBackend } from '@angular/http';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';
@@ -63,15 +63,27 @@ const appRoutes: Routes = [
     InputTextModule
 
   ],
-  providers: [UserService,CookieService,ProductService,ConfirmationService,AuthGaurdService,
+  providers: [
+    // {
+    //   provide: HttpService,
+    //   useFactory: (backend: XHRBackend, options: RequestOptions) => {
+    //     return new HttpService(backend, options);
+    //   },
+    //   deps: [XHRBackend, RequestOptions]
+    // },
     {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions) => {
-        return new HttpService(backend, options);
-      },
+      useFactory:httpServiceFactory,
       deps: [XHRBackend, RequestOptions]
-    }
+    },
+    UserService,CookieService,ProductService,ConfirmationService,AuthGaurdService,
+
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+
+//This is for http interceptor
+export function httpServiceFactory(backend: XHRBackend, options: RequestOptions) {
+  return new HttpService(backend, options);
+}

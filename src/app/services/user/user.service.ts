@@ -41,7 +41,7 @@ export class UserService {
 
   isAuth()
   {
-    return false;
+    return localStorage.user_token!=null;
   }
 
 }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {CookieService} from "angular2-cookie/core"
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
