@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from "@angular/forms"
+import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {RouterModule, Routes} from '@angular/router';
 import {Http, HttpModule , RequestOptions, XHRBackend } from '@angular/http';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
@@ -28,6 +28,7 @@ import { HeaderComponent } from './common/header/header.component'
 
 import {ProductService} from "./services/product/product.service";
 import {AuthGaurdService} from "./services/auth-gaurd/auth-gaurd.service";
+import { NumberOnlyDirective } from './directives/number-only/number-only.directive';
 
 
 const appRoutes: Routes = [
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     ProfileComponent,
     ProductComponent,
-    HeaderComponent
+    HeaderComponent,
+    NumberOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
 
     GrowlModule,
     PasswordModule,

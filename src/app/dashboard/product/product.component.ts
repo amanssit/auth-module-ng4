@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/primeng"
 import {ProductService} from "../../services/product/product.service"
 import {Message} from 'primeng/primeng';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -16,7 +17,16 @@ export class ProductComponent implements OnInit {
   msgs: Message[] = [];
   displayDialog: boolean;
   p: any = {};
-  constructor(private productService: ProductService, private confirmationService: ConfirmationService) {
+  productForm: FormGroup;
+
+  constructor(private productService: ProductService, private confirmationService: ConfirmationService, private fb: FormBuilder) {
+    this.productForm = fb.group({
+      'sku': [null, Validators.required],
+      'name': [null, Validators.required],
+      'price': [null, Validators.required],
+      'quantity': [null, Validators.required],
+      'status': false
+    });
   }
 
   ngOnInit() {
@@ -33,13 +43,14 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  addProduct(sku, name, price, quantity, status) {
-    var data = {sku: sku, name: name, price: price, quantity: quantity, status: true};
-    this.productService.create(data).then(res => {
+  addProduct(product) {
+
+    this.productService.create(product).then(res => {
       this.response = res;
       if (this.response.status == 200) {
         this.msgs = [];
         this.msgs.push({severity: 'success', summary: 'Product Added', detail: this.response.msg});
+        this.productForm.reset();
         this.loadProducts();
       }
       else {
@@ -87,7 +98,7 @@ export class ProductComponent implements OnInit {
       header: 'Confirmation',
       icon: 'fa fa-question-circle',
       accept: () => {
-        this.productService.update(product_id,this.p).then(res => {
+        this.productService.update(product_id, this.p).then(res => {
           this.response = res;
           if (this.response.status == 200) {
             this.displayDialog = false;

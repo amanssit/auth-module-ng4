@@ -5,6 +5,7 @@ import {Router} from "@angular/router"
 import {CookieService} from 'angular2-cookie/core';
 
 import {UserService} from "../services/user/user.service"
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -12,28 +13,30 @@ import {UserService} from "../services/user/user.service"
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: any = {};
   msgs: Message[] = [];
   response: any = {};
+  loginForm: FormGroup;
 
-  constructor(private userService: UserService, private cookieService: CookieService,private router:Router) {
+  constructor(private userService: UserService, private cookieService: CookieService, private router: Router, fb: FormBuilder) {
+    this.loginForm = fb.group({
+      'username':[null,Validators.required],
+      'password': [null,Validators.required                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ]
+    })
   }
 
   ngOnInit() {
 
   }
 
-  login(username, password) {
-    this.user.username = username;
-    this.user.password = password;
-    this.userService.loginUser(this.user)
+  login(loginUser) {
+    this.userService.loginUser(loginUser)
       .then(res => {
         this.response = res;
         if (this.response.status == 200) {
           this.msgs = [];
           this.msgs.push({severity: 'success', summary: 'Login Success', detail: 'Login Success'});
-          this.cookieService.put('user_token',this.response.token);
-          localStorage.user_token=this.response.token;
+          this.cookieService.put('user_token', this.response.token);
+          localStorage.user_token = this.response.token;
           this.router.navigate(['/dashboard/products']);
         }
         else {
