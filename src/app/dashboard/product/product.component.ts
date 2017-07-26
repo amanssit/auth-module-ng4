@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit {
   productForm: FormGroup;
 
   constructor(private productService: ProductService, private confirmationService: ConfirmationService, private fb: FormBuilder) {
+
     this.productForm = fb.group({
       'sku': [null, Validators.required],
       'name': [null, Validators.required],
@@ -27,6 +28,7 @@ export class ProductComponent implements OnInit {
       'quantity': [null, Validators.required],
       'status': false
     });
+
   }
 
   ngOnInit() {
@@ -37,8 +39,9 @@ export class ProductComponent implements OnInit {
   loadProducts() {
     this.productService.productList().then((res) => {
       this.response = res;
+
       if (this.response.status == 200) {
-        this.products = this.response.data;
+        this.products = this.response.data.docs;
       }
     })
   }

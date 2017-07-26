@@ -5,6 +5,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {Http, HttpModule , RequestOptions, XHRBackend } from '@angular/http';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
+import { NgUploaderModule } from 'ngx-uploader';
+
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {HttpService} from "./services/http-service/http-service.service"
 
@@ -29,13 +31,16 @@ import { HeaderComponent } from './common/header/header.component'
 import {ProductService} from "./services/product/product.service";
 import {AuthGaurdService} from "./services/auth-gaurd/auth-gaurd.service";
 import { NumberOnlyDirective } from './directives/number-only/number-only.directive';
+import { ProductUploadComponent } from './dashboard/product-upload/product-upload.component';
+
 
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'dashboard/profile', component: ProfileComponent},
+  {path: 'dashboard/profile', component: ProfileComponent,canActivate:[AuthGaurdService]},
   {path: 'dashboard/products', component: ProductComponent,canActivate:[AuthGaurdService]},
+  {path: 'dashboard/product-upload', component: ProductUploadComponent,canActivate:[AuthGaurdService]},
   {path: '', component: LoginComponent},
 ];
 
@@ -47,7 +52,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     ProductComponent,
     HeaderComponent,
-    NumberOnlyDirective
+    NumberOnlyDirective,
+    ProductUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +62,8 @@ const appRoutes: Routes = [
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+
+    NgUploaderModule,
 
     GrowlModule,
     PasswordModule,
