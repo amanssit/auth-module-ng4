@@ -7,6 +7,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
 import { NgUploaderModule } from 'ngx-uploader';
 
+import {NgProgressModule} from "ngx-progressbar";
+import { BrowserXhr } from '@angular/http';
+import { NgProgressBrowserXhr } from 'ngx-progressbar';
+
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {HttpService} from "./services/http-service/http-service.service"
 
@@ -64,6 +68,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
 
     NgUploaderModule,
+    NgProgressModule,
 
     GrowlModule,
     PasswordModule,
@@ -82,6 +87,7 @@ const appRoutes: Routes = [
     //   },
     //   deps: [XHRBackend, RequestOptions]
     // },
+    { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
     {
       provide: HttpService,
       useFactory:httpServiceFactory,
