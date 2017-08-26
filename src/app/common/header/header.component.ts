@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,11 @@ import {UserService} from "../../services/user/user.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private router:Router) {
+    this.router.events.subscribe((event) => {
+      console.log(event);
+
+    });
   }
 
   ngOnInit() {

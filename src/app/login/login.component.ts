@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Message} from 'primeng/primeng';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
+import {Location} from "@angular/common"
 
 import {CookieService} from 'angular2-cookie/core';
 
@@ -17,10 +18,10 @@ export class LoginComponent implements OnInit {
   response: any = {};
   loginForm: FormGroup;
 
-  constructor(private userService: UserService, private cookieService: CookieService, private router: Router, fb: FormBuilder) {
+  constructor(private userService: UserService, private cookieService: CookieService, private router: Router, fb: FormBuilder, private location: Location) {
     this.loginForm = fb.group({
-      'username':[null,Validators.required],
-      'password': [null,Validators.required                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ]
+      'username': [null, Validators.required],
+      'password': [null, Validators.required]
     })
   }
 
@@ -45,6 +46,17 @@ export class LoginComponent implements OnInit {
         }
         console.log('login res : ', res);
       })
+  }
+
+  facebookLogin() {
+    window.location.href = 'http://localhost:3000/auth/facebook';
+  }
+
+  twitterLogin() {
+    window.location.href = 'http://localhost:3000/auth/twitter';
+  }
+  linkedinLogin() {
+    window.location.href = 'http://localhost:3000/auth/linkedin';
   }
 
 }

@@ -29,11 +29,13 @@ import { HeaderComponent } from './common/header/header.component'
 import {ProductService} from "./services/product/product.service";
 import {AuthGaurdService} from "./services/auth-gaurd/auth-gaurd.service";
 import { NumberOnlyDirective } from './directives/number-only/number-only.directive';
+import { SocialComponent } from './social/social.component';
 
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'social/:token', component: SocialComponent},
   {path: 'dashboard/profile', component: ProfileComponent},
   {path: 'dashboard/products', component: ProductComponent,canActivate:[AuthGaurdService]},
   {path: '', component: LoginComponent},
@@ -47,7 +49,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     ProductComponent,
     HeaderComponent,
-    NumberOnlyDirective
+    NumberOnlyDirective,
+    SocialComponent
   ],
   imports: [
     BrowserModule,
