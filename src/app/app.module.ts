@@ -5,6 +5,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {Http, HttpModule , RequestOptions, XHRBackend } from '@angular/http';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
+import { NgUploaderModule } from 'ngx-uploader';
+
+import {NgProgressModule} from "ngx-progressbar";
+import { BrowserXhr } from '@angular/http';
+import { NgProgressBrowserXhr } from 'ngx-progressbar';
+
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {HttpService} from "./services/http-service/http-service.service"
 
@@ -30,6 +36,8 @@ import {ProductService} from "./services/product/product.service";
 import {AuthGaurdService} from "./services/auth-gaurd/auth-gaurd.service";
 import { NumberOnlyDirective } from './directives/number-only/number-only.directive';
 import { SocialComponent } from './social/social.component';
+import { ProductUploadComponent } from './dashboard/product-upload/product-upload.component';
+
 
 
 const appRoutes: Routes = [
@@ -37,7 +45,9 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'social/:token', component: SocialComponent},
   {path: 'dashboard/profile', component: ProfileComponent},
+  {path: 'dashboard/profile', component: ProfileComponent,canActivate:[AuthGaurdService]},
   {path: 'dashboard/products', component: ProductComponent,canActivate:[AuthGaurdService]},
+  {path: 'dashboard/product-upload', component: ProductUploadComponent,canActivate:[AuthGaurdService]},
   {path: '', component: LoginComponent},
 ];
 
@@ -50,7 +60,8 @@ const appRoutes: Routes = [
     ProductComponent,
     HeaderComponent,
     NumberOnlyDirective,
-    SocialComponent
+    SocialComponent,
+    ProductUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +70,9 @@ const appRoutes: Routes = [
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+
+    NgUploaderModule,
+    NgProgressModule,
 
     GrowlModule,
     PasswordModule,
@@ -77,6 +91,7 @@ const appRoutes: Routes = [
     //   },
     //   deps: [XHRBackend, RequestOptions]
     // },
+    { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
     {
       provide: HttpService,
       useFactory:httpServiceFactory,

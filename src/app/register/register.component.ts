@@ -3,6 +3,7 @@ import {Router} from "@angular/router"
 import {Message} from 'primeng/primeng';
 
 import {UserService} from "../services/user/user.service"
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -15,7 +16,15 @@ export class RegisterComponent implements OnInit {
   response: any = {};
   msgs: Message[] = [];
 
-  constructor(private router:Router,private userService: UserService) {
+  registerForm:FormGroup;
+
+  constructor(private router:Router,private userService: UserService,private fb:FormBuilder) {
+    this.registerForm=fb.group({
+      'fullname':[null,Validators.required],
+      'username':[null,Validators.required],
+      'password':[null,Validators.required],
+      'city':[null,Validators.required]
+    });
   }
 
   ngOnInit() {
